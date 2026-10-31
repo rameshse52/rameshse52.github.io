@@ -1,14 +1,25 @@
-title: Ramesh Kumar
-description: Notes on SSO, identity and access management, from SiteMinder to PingFederate.
+title: Ramesh Selvaraj
+description: Notes on single sign-on and identity and access management, from SiteMinder to PingFederate.
 url: "https://rameshkumar.com"
 baseurl: ""
 
-theme: minima
+author:
+  name: Ramesh Selvaraj
+  role: Identity & Access Management · SSO
+  # To show a LinkedIn link in the menu, remove the # below and paste your profile URL:
+  # linkedin: "https://www.linkedin.com/in/your-profile"
+
+intro: I work on single sign-on and identity and access management, with years of hands-on SiteMinder and LDAP experience. I'm now learning PingFederate, and I write down what I learn so others making the same move can skip the guesswork.
+
+topics:
+  - SiteMinder
+  - PingFederate
+  - SAML
+  - OAuth & OIDC
+  - LDAP
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-
-header_pages:
-  - about.md
 
 permalink: /:year/:month/:title/
