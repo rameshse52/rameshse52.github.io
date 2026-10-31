@@ -1,0 +1,14 @@
+title: Ramesh Kumar
+description: Notes on SSO, identity and access management, from SiteMinder to PingFederate.
+url: "https://rameshkumar.com"
+baseurl: ""
+
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+header_pages:
+  - about.md
+
+permalink: /:year/:month/:title/
