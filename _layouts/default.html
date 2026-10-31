@@ -1,1 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% seo %}
+  {% feed_meta %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --surface: #ffffff;
+      --text: #14181f;
+      --muted: #5b6573;
+      --line: #e3e7ec;
+      --accent: #0f5c6e;
+      --accent-soft: #e3f0f2;
+      --code-bg: #eef1f4;
+      --shadow: 0 1px 2px rgba(20, 24, 31, .04), 0 8px 24px rgba(20, 24, 31, .06);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1216;
+        --surface: #161b21;
+        --text: #e8ebef;
+        --muted: #9aa4b1;
+        --line: #262d36;
+        --accent: #5fc0d3;
+        --accent-soft: #15303a;
+        --code-bg: #1d232b;
+        --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 17px/1.65 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
 
+    /* Header */
+    .site-header {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; }
+    .brand:hover { text-decoration: none; }
+    .mark {
+      display: grid; place-items: center;
+      width: 34px; height: 34px; border-radius: 9px;
+      background: var(--accent); color: var(--bg);
+      font-size: 14px; font-weight: 700; letter-spacing: .5px;
+    }
+    .nav nav { display: flex; gap: 22px; font-size: 15px; }
+    .nav nav a { color: var(--muted); font-weight: 500; }
+    .nav nav a:hover { color: var(--text); text-decoration: none; }
+
+    /* Hero */
+    .hero { padding: 72px 0 48px; }
+    .eyebrow {
+      display: inline-block; margin: 0 0 18px;
+      padding: 4px 12px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 13px; font-weight: 600; letter-spacing: .3px;
+    }
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(36px, 7vw, 54px); line-height: 1.08; letter-spacing: -1.2px;
+    }
+    .lead { margin: 0 0 24px; font-size: 19px; color: var(--muted); max-width: 620px; }
+    .tags { list-style: none; padding: 0; margin: 0 0 30px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .tags li {
+      padding: 5px 12px; border: 1px solid var(--line); border-radius: 8px;
+      background: var(--surface); font-size: 14px; color: var(--muted);
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-block; padding: 11px 20px; border-radius: 10px;
+      border: 1px solid var(--line); background: var(--surface);
+      color: var(--text); font-weight: 600; font-size: 15px;
+    }
+    .btn:hover { text-decoration: none; border-color: var(--accent); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+    /* Post list */
+    .posts { padding: 24px 20px 72px; }
+    .section-title {
+      margin: 0 0 18px; font-size: 13px; text-transform: uppercase;
+      letter-spacing: 1.2px; color: var(--muted); font-weight: 600;
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+      box-shadow: var(--shadow); margin-bottom: 16px; transition: border-color .15s, transform .15s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card a { display: block; padding: 24px 26px; color: inherit; }
+    .card a:hover { text-decoration: none; }
+    .card h3 { margin: 6px 0 8px; font-size: 22px; line-height: 1.3; letter-spacing: -.3px; }
+    .card p { margin: 0 0 12px; color: var(--muted); }
+    .more { color: var(--accent); font-weight: 600; font-size: 15px; }
+    .meta { margin: 0; font-size: 14px; color: var(--muted); }
+
+    /* Articles and pages */
+    .article { padding: 48px 20px 72px; }
+    .article > h1 {
+      margin: 10px 0 10px;
+      font-size: clamp(30px, 5.5vw, 42px); line-height: 1.15; letter-spacing: -.8px;
+    }
+    .prose { font-family: "Source Serif 4", Georgia, serif; font-size: 19px; line-height: 1.7; }
+    .prose h2, .prose h3 {
+      font-family: "Inter", system-ui, sans-serif;
+      letter-spacing: -.3px; line-height: 1.3; margin: 2.2em 0 .6em;
+    }
+    .prose h2 { font-size: 26px; }
+    .prose h3 { font-size: 20px; }
+    .prose li { margin: .35em 0; }
+    .prose table {
+      display: block; overflow-x: auto; width: 100%;
+      border-collapse: collapse; margin: 1.6em 0;
+      font-family: "Inter", system-ui, sans-serif; font-size: 15px; line-height: 1.5;
+    }
+    .prose th, .prose td { padding: 10px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .prose th { background: var(--accent-soft); color: var(--text); font-weight: 600; white-space: nowrap; }
+    .prose code { background: var(--code-bg); padding: 2px 6px; border-radius: 5px; font-size: .85em; }
+    .prose pre { background: var(--code-bg); padding: 16px; border-radius: 10px; overflow-x: auto; font-size: 15px; }
+    .prose pre code { background: none; padding: 0; }
+    .prose blockquote { margin: 1.5em 0; padding: 4px 20px; border-left: 3px solid var(--accent); color: var(--muted); }
+    .article-head { font-family: "Inter", system-ui, sans-serif; }
+    .back { font-size: 15px; font-weight: 500; }
+
+    .author-box {
+      display: flex; gap: 16px; align-items: center;
+      margin-top: 56px; padding: 22px 24px;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+      font-family: "Inter", system-ui, sans-serif; font-size: 15px; line-height: 1.5;
+    }
+    .author-box .mark { width: 46px; height: 46px; font-size: 16px; flex-shrink: 0; }
+    .author-box strong { display: block; font-size: 16px; }
+    .author-box span { color: var(--muted); }
+
+    /* Footer */
+    .site-footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-size: 14px; color: var(--muted); }
+    .footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+    .footer-row a { color: var(--muted); }
+
+    @media (max-width: 560px) {
+      body { font-size: 16px; }
+      .hero { padding: 48px 0 32px; }
+      .nav nav { gap: 16px; }
+      .brand .name { display: none; }
+      .card a { padding: 20px; }
+      .prose { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <span class="mark">RS</span>
+        <span class="name">{{ site.author.name }}</span>
+      </a>
+      <nav>
+        <a href="{{ '/' | relative_url }}#posts">Blog</a>
+        <a href="{{ '/about/' | relative_url }}">About</a>
+        {% if site.author.linkedin %}<a href="{{ site.author.linkedin }}" rel="me noopener" target="_blank">LinkedIn</a>{% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <span>© {{ site.time | date: "%Y" }} {{ site.author.name }} · Views are my own.</span>
+      <span><a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></span>
+    </div>
+  </footer>
+</body>
+</html>

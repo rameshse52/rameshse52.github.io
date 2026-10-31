@@ -1,0 +1,26 @@
+---
+layout: default
+---
+{% assign words = content | number_of_words %}
+<article class="wrap article">
+  <div class="article-head">
+    <a class="back" href="{{ '/' | relative_url }}#posts">← All posts</a>
+    <h1>{{ page.title | escape }}</h1>
+    <p class="meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      · {{ words | divided_by: 200 | plus: 1 }} min read
+    </p>
+  </div>
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  <div class="author-box">
+    <span class="mark">RS</span>
+    <div>
+      <strong>{{ site.author.name }}</strong>
+      <span>{{ site.author.role }}. Writing about the move from SiteMinder to PingFederate.</span>
+    </div>
+  </div>
+</article>

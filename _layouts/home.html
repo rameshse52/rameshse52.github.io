@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">{{ site.author.role }}</p>
+    <h1>Hi, I'm {{ site.author.name }}.</h1>
+    <p class="lead">{{ site.intro }}</p>
+    <ul class="tags">
+      {% for topic in site.topics %}<li>{{ topic }}</li>{% endfor %}
+    </ul>
+    <div class="actions">
+      <a class="btn primary" href="#posts">Read the blog</a>
+      <a class="btn" href="{{ '/about/' | relative_url }}">About me</a>
+    </div>
+  </div>
+</section>
+
+<section id="posts" class="wrap posts">
+  <h2 class="section-title">Latest writing</h2>
+  {% for post in site.posts %}
+  <article class="card">
+    <a href="{{ post.url | relative_url }}">
+      {% assign words = post.content | number_of_words %}
+      <p class="meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+        · {{ words | divided_by: 200 | plus: 1 }} min read
+      </p>
+      <h3>{{ post.title | escape }}</h3>
+      <p>{{ post.excerpt | strip_html | truncatewords: 40 }}</p>
+      <span class="more">Read post →</span>
+    </a>
+  </article>
+  {% endfor %}
+</section>
